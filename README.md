@@ -1,2 +1,2 @@
 # TB-Mastermind
-If Arachnotrons has shotguns, then Spiderdemons should have Thunder Busters.
+Similar to those to Shotgun Arachnotrons, this addon adds Spiderdemons with Thunder Busters. gl. i have no regrets 
