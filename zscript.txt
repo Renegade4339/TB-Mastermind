@@ -1,0 +1,86 @@
+class BigArachnotron : Technorantula replaces SpiderMastermind{
+int shotcount2;
+bool alt;
+int battery;
+
+	override void postbeginplay(){
+		super.postbeginplay();
+		alt=true;
+	}
+
+	void A_ThunderZap(){
+		thunderbuster.thunderzap(self,32,alt,battery);
+	}
+
+Default{
+HitObituary "%o regrets going near the $TAG.";
+MeleeRange 512;
+}
+States{
+Melee:
+		SPID # 0{
+			A_StartSound("spider/walk",CHAN_BODY);
+			shotcount2=0;
+		}
+		SPID # 0 A_JumpIfTargetInLOS("aim2",10);
+		SPID # 0 A_Recoil(-1);
+		SPID AA 2 A_FaceTarget(18,40);
+		SPID # 0 A_Recoil(-1);
+		SPID BB 2 A_FaceTarget(18,40);
+		SPID # 0 A_StartSound("spider/walk",CHAN_BODY);
+		SPID # 0 A_Recoil(-1);
+		SPID CC 2 A_FaceTarget(18,40);
+		SPID # 0 A_JumpIfTargetInLOS("aim2",10);
+		SPID # 0 A_Recoil(-1);
+		SPID DD 2 A_FaceTarget(18,40);
+		SPID # 0 A_JumpIfTargetInLOS("aim2",10);
+		SPID # 0 A_StartSound("spider/walk",CHAN_BODY);
+		SPID # 0 A_Recoil(-1);
+		SPID EE 2 A_FaceTarget(18,40);
+		SPID # 0 A_JumpIfTargetInLOS("aim2",10);
+		SPID # 0 A_Recoil(-1);
+		SPID FF 2 A_FaceTarget(18,40);
+		SPID # 0 A_JumpIfTargetInLOS("melee",10);
+		---- A 0 setstatelabel("see");
+	aim2:
+		SPID # 4{
+			shotcount=0;
+			shotchannel=4;
+			frame=randompick(2,5);
+			A_Recoil(-1);
+		}
+		SPID # 4{
+			A_FaceTarget(8,8);
+			A_Recoil(2);
+			double dist=target?distance3d(target):1000;
+			A_SetTics(clamp(int(dist*0.002),4,16));
+			spread=22./max(dist*0.012,1);
+			pitch-=dist*0.00002;
+			shotcount2=0;
+		}
+	shoot2:
+		SPID GHGHGH 2 bright light("SPIDF"){
+			A_StartSound("weapons/plasidle",CHAN_WEAPON);
+			A_ThunderZap();
+			shotcount2++;
+		}
+		SPID G 0 A_JumpIf(shotcount2>50,"stopshot");
+		SPID # 0 A_JumpIfTargetInLOS("stopshot2",20);
+		goto guard;
+	stopshot2:
+		SPID G 0 A_Jump(220,"shoot2");
+		SPID # 10{
+			frame=randompick(2,5);
+			A_Recoil(-1);
+		}---- A 0 setstatelabel("see");
+	guard2:
+		SPID # 1 A_JumpIfTargetInLOS("shoot2",20);
+		SPID # 1 A_JumpIfTargetInLOS("melee");
+		SPID # 1 A_Jump(12,"see");
+		SPID # 0 A_JumpIfTargetInLOS("shoot2",20);
+		SPID # 1 A_SetAngle(angle+random(-4,4));
+		SPID # 1 A_Jump(28,"shoot2");
+		SPID # 0 A_JumpIfTargetInLOS("shoot2",20);
+		loop;
+}
+}
