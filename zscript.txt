@@ -1,3 +1,5 @@
+version "4.7"
+
 class BigArachnotron : Technorantula replaces SpiderMastermind{
 int shotcount2;
 bool alt;
@@ -14,6 +16,7 @@ int battery;
 
 Default{
 HitObituary "%o regrets going near the $TAG.";
++E3M8BOSS +E4M8BOSS
 MeleeRange 512;
 }
 States{
