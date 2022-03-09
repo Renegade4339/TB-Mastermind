@@ -67,7 +67,7 @@ Melee:
 			A_ThunderZap();
 			shotcount2++;
 		}
-		SPID G 0 A_JumpIf(shotcount2>50,"stopshot");
+		SPID G 0 A_JumpIf(shotcount2>50,"stopshot2");
 		SPID # 0 A_JumpIfTargetInLOS("stopshot2",20);
 		goto guard;
 	stopshot2:
