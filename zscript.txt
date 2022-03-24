@@ -93,7 +93,7 @@ Melee:
 		goto super::shoot;
 
 	shootthething:
-		SPID G 0{counttothezappies==0; alt=false;}
+		SPID G 0{counttothezappies=0; alt=false;}
 		SPID GHGHGHGHGHGHGHGHGHGHGHGHGHG 2 bright light("SPIDF"){
 			A_StartSound("weapons/plasidle",CHAN_WEAPON);
 			A_ThunderZap();
